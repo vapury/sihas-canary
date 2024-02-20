@@ -99,6 +99,7 @@ AQM_GENERIC_SENSOR_DEFINE: Final = {
 
 PMM_KEY_POWER: Final = "power"
 PMM_KEY_THIS_MONTH_ENERGY: Final = "this_month_energy"
+PMM_KEY_TWO_MONTH_AGO_ENERGY: Final = "two_month_ago_energy"
 PMM_KEY_THIS_DAY_ENERGY: Final = "this_day_energy"
 PMM_KEY_TOTAL: Final = "total_energy"
 PMM_KEY_LAST_MONTH_ENERGY: Final = "last_month_energy"
@@ -126,6 +127,10 @@ def this_month_value_handler(registers: List[int]) -> float:
 def last_month_value_handler(registers: List[int]) -> float:
     mag = 10 if not registers[31] else 100
     return as_killo_watt(registers[11] * mag)
+
+def two_month_ago_value_handler(registers: List[int]) -> float:
+    mag = 10 if not registers[31] else 100
+    return as_killo_watt(registers[12] * mag)
 
 PMM_GENERIC_SENSOR_DEFINE: Final = {
     PMM_KEY_POWER: PmmConfig(
@@ -155,6 +160,13 @@ PMM_GENERIC_SENSOR_DEFINE: Final = {
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL_INCREASING,
         sub_id=PMM_KEY_TOTAL,
+    ),
+    PMM_KEY_TWO_MONTH_AGO_ENERGY: PmmConfig(
+        nuom=UnitOfEnergy.KILO_WATT_HOUR,
+        value_handler=two_month_ago_value_handler,
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL,
+        sub_id=PMM_KEY_TWO_MONTH_AGO_ENERGY,
     ),
     PMM_KEY_LAST_MONTH_ENERGY: PmmConfig(
         nuom=UnitOfEnergy.KILO_WATT_HOUR,
