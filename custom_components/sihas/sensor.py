@@ -249,6 +249,7 @@ class Pmm300(SihasProxy):
         return [
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_POWER]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_MONTH_ENERGY]),
+            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TWO_MONTH_AGO_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_DAY_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TOTAL]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_LAST_MONTH_ENERGY]),
