@@ -162,7 +162,7 @@ PMM_GENERIC_SENSOR_DEFINE: Final = {
         value_handler=lambda r: as_killo_watt(r[6] * 10 + r[16]),
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
-        sub_id=PMM_KEY_THIS_DAY_ENERGY,
+        sub_id=PMM_KEY_THIS_HOUR_ENERGY,
     ),
     PMM_KEY_TOTAL: PmmConfig(
         nuom=UnitOfEnergy.KILO_WATT_HOUR,
