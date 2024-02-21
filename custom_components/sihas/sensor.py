@@ -171,7 +171,7 @@ PMM_GENERIC_SENSOR_DEFINE: Final = {
         state_class=SensorStateClass.TOTAL,
         sub_id=PMM_KEY_THIS_HOUR_ENERGY,
     ),
-    PMM_KEY_THIS_YESTERDAY_ENERGY: PmmConfig(
+    PMM_KEY_YESTERDAY_ENERGY: PmmConfig(
         nuom=UnitOfEnergy.KILO_WATT_HOUR,
         value_handler=lambda r: as_killo_watt(r[9] * 10),
         device_class=SensorDeviceClass.ENERGY,
@@ -273,12 +273,12 @@ class Pmm300(SihasProxy):
         return [
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_POWER]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_MONTH_ENERGY]),
-            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TWO_MONTH_AGO_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_DAY_ENERGY]),
-            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_HOUR_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_BEFORE_HOUR_ENERGY]),
+            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_HOUR_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_YESTERDAY_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TOTAL]),
+            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TWO_MONTH_AGO_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_LAST_MONTH_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_VOLTAGE]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_CURRENT]),
