@@ -98,15 +98,18 @@ AQM_GENERIC_SENSOR_DEFINE: Final = {
 }
 
 PMM_KEY_POWER: Final = "power"
-PMM_KEY_THIS_MONTH_ENERGY: Final = "this_month_energy"
-PMM_KEY_TWO_MONTH_AGO_ENERGY: Final = "two_month_ago_energy"
-PMM_KEY_THIS_DAY_ENERGY: Final = "this_day_energy"
-PMM_KEY_TOTAL: Final = "total_energy"
-PMM_KEY_LAST_MONTH_ENERGY: Final = "last_month_energy"
 PMM_KEY_VOLTAGE: Final = "voltage"
 PMM_KEY_CURRENT: Final = "current"
-PMM_KEY_POWER_FACTOR: Final = "power_factor"
 PMM_KEY_FREQUENCY: Final = "frequency"
+PMM_KEY_POWER_FACTOR: Final = "power_factor"
+PMM_KEY_TOTAL: Final = "total_energy"
+PMM_KEY_THIS_HOUR_ENERGY: Final = "this_hour_energy"
+PMM_KEY_BEFORE_HOUR_ENERGY: Final = "before_hour_energy"
+PMM_KEY_THIS_DAY_ENERGY: Final = "this_day_energy"
+PMM_KEY_YESTERDAY_ENERGY: Final = "yesterday_energy"
+PMM_KEY_THIS_MONTH_ENERGY: Final = "this_month_energy"
+PMM_KEY_LAST_MONTH_ENERGY: Final = "last_month_energy"
+PMM_KEY_TWO_MONTH_AGO_ENERGY: Final = "two_month_ago_energy"
 
 
 @dataclass
@@ -150,6 +153,13 @@ PMM_GENERIC_SENSOR_DEFINE: Final = {
     PMM_KEY_THIS_DAY_ENERGY: PmmConfig(
         nuom=UnitOfEnergy.KILO_WATT_HOUR,
         value_handler=lambda r: as_killo_watt(r[8] * 10 + r[16]),
+        device_class=SensorDeviceClass.ENERGY,
+        state_class=SensorStateClass.TOTAL,
+        sub_id=PMM_KEY_THIS_DAY_ENERGY,
+    ),
+    PMM_KEY_THIS_HOUR_ENERGY: PmmConfig(
+        nuom=UnitOfEnergy.KILO_WATT_HOUR,
+        value_handler=lambda r: as_killo_watt(r[6] * 10 + r[16]),
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.TOTAL,
         sub_id=PMM_KEY_THIS_DAY_ENERGY,
@@ -251,6 +261,7 @@ class Pmm300(SihasProxy):
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_MONTH_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TWO_MONTH_AGO_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_DAY_ENERGY]),
+            PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_THIS_HOUR_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_TOTAL]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_LAST_MONTH_ENERGY]),
             PmmVirtualSensor(self, PMM_GENERIC_SENSOR_DEFINE[PMM_KEY_VOLTAGE]),
